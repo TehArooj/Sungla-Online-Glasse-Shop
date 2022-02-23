@@ -1,0 +1,106 @@
+﻿
+@model List<PostMidProject.Models.Order>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<body class="main-layout position_head">
+
+    <div class="custom_label">
+        <h1>Orders</h1>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Order No.</th>
+                <th scope="col">Date</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model)
+            {
+                <tr>
+                    <td>@o.Order_Id</td>
+                    <td>@o.Date</td>
+                    <td>@o.user.Name</td>
+                    <td>@o.Product.Product_Name</td>
+                    <td>@o.Total_Amount</td>
+                    <td>
+                        @{
+                            switch (o.Status)
+                            {
+                                case 1:
+                                    <text>
+                                        New
+                                    </text>
+                                    break;
+                                case 2:
+                                    <text>
+                                        Delivered
+                                    </text>
+                                    break;
+                                case 3:
+                                    <text>
+                                        Canceled
+                                    </text>
+                                    break;
+                                default:
+                                    <text>
+                                        New
+                                    </text>
+                                    break;
+                            }
+                        }
+                    </td>
+                    <td style="text-align:center;">
+                        @{if (o.Status == 1)
+                            {
+                                <text>
+                                    <a class="action-btn" href="/Admin/DeliverOrder/@o.Order_Id">Deliver</a>
+                                </text>
+                            }
+                            else
+                            {
+                                <text></text>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <!-- Javascript files-->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.0.0.min.js"></script>
+    <!-- sidebar -->
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/custom.js"></script>
+
+    <script src="~/js/sweetalert.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                if (results !== null) {
+                    return decodeURI(results[1]) || 0;
+                }
+                return '';
+            }
+
+            if ($.urlParam('delivered') == '1') {
+                swal("Order delivered successfully.", "", "success");
+            } else if ($.urlParam('delivered') == '0') {
+                swal("An error occured while delivered Order.", "", "error");
+            }
+        });
+    </script>
+</body>

@@ -1,0 +1,88 @@
+﻿
+@model List<PostMidProject.Models.Product>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .product_image {
+        height: 100px;
+        /*   width:150px*/
+    }
+</style>
+
+<body class="main-layout position_head">
+    <div class="custom_label">
+        <h1>Products</h1>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Product No.</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                @*<th scope="col">Quantity Available</th>
+                    <th scope="col">Quantity Sold</th>*@
+                <th scope="col"></th>
+                <th scope="col"></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td><img class="product_image" src="~/UploadedFiles/@p.Image" alt="#" /></td>
+                    <td>@p.Product_Id</td>
+                    <td>@p.Product_Name</td>
+                    <td>@p.Price</td>
+                    @*<td>@p.Quantity</td>
+                        <td>@p.Sold</td>*@
+                    <td style=" text-align: center;">
+
+                        <a class="action-btn" href="/Admin/UpdateProduct/@p.Product_Id">Update</a>
+
+                    </td>
+                    <td style=" text-align: center;"><a class="action-btn" href="/Admin/DeleteProduct/@p.Product_Id">Delete</a></td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <!-- Javascript files-->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.0.0.min.js"></script>
+    <!-- sidebar -->
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="~/js/sweetalert.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+
+                if (results !== null) {
+                    return decodeURI(results[1]) || 0;
+                }
+                return '';
+            }
+
+            if ($.urlParam('updated') == '1') {
+                swal("Product updated successfully.", "", "success");
+            } else if ($.urlParam('updated') == '0') {
+                swal("An error occured while updating product.", "", "error");
+            }
+
+            if ($.urlParam('deleted') == '1') {
+                swal("Product deleted successfully.", "", "success");
+            } else if ($.urlParam('deleted') == '0') {
+                swal("An error occured while deleting product.", "", "error");
+            }
+        });
+
+    </script>
+</body>

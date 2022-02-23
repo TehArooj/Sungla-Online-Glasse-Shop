@@ -1,0 +1,65 @@
+
+
+@model List<PostMidProject.Models.Product>
+
+
+<style>
+    .product_image {
+        height: 150px;
+        /*   width:150px*/
+    }
+</style>
+<body class="main-layout position_head">
+    <!-- loader  -->
+    <div class="loader_bg">
+        <div class="loader"><img src="~/images/loading.gif" alt="#" /></div>
+    </div>
+    <!-- end loader -->
+    <!-- Our  Glasses section -->
+    <div class="glasses">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="titlepage">
+                        <h2>Our Glasses</h2>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labor
+                            e et dolore magna aliqua. Ut enim ad minim veniam, qui
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                @foreach (var p in Model)
+                {
+
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                        <div class="glasses_box">
+                            <figure><img class="product_image" src="~/UploadedFiles/@p.Image" alt="#" /></figure>
+                            <h3><span class="blu">$</span>@p.Price</h3>
+                            <p>@p.Product_Name</p>
+                        </div>
+                    </div>
+                }
+
+                @*<div class="col-md-12">
+                        <a class="read_more" href="#">Read More</a>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <!-- end Our  Glasses section -->
+    <!-- end footer -->
+    <!-- Javascript files-->
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.0.0.min.js"></script>
+    <!-- sidebar -->
+    <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/js/custom.js"></script>
+</body>
+
+
